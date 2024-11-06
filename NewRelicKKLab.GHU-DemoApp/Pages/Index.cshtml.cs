@@ -12,8 +12,10 @@ namespace NewRelicKKLab.GHU_DemoApp.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public void OnGet([FromQuery]bool error = false)
         {
+            if (error)
+                throw new Exception("This is an exception message");
             _logger.LogInformation("This is an information log message");
         }
     }
