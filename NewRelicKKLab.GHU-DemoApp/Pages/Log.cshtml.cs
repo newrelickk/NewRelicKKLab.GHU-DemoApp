@@ -13,16 +13,12 @@ namespace NewRelicKKLab.GHU_DemoApp.Pages
             _logger = logger;
         }
 
-        public async Task OnGet([FromQuery]int duration=60)
+        public async Task OnGet([FromQuery] int duration = 60, [FromQuery] int total = 100)
         {
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < total; i++)
             {
-                // Log a message to the console
-                System.Console.WriteLine($"This is a console log message {i} at {DateTime.Now:G}");
-                // Log a message to the output window
-                System.Diagnostics.Debug.WriteLine($"This is a debug output message {i} at {DateTime.Now:G}");
-                _logger.LogInformation($"This is an information log message {i} at {DateTime.Now:G}");
-                await Task.Delay(TimeSpan.FromMilliseconds(duration * 1000 / 100));
+                _logger.LogInformation("This is an information log message {Index} at {Time}", i, DateTime.Now);
+                await Task.Delay(TimeSpan.FromMilliseconds(duration * 1000 / total));
             }
         }
     }
