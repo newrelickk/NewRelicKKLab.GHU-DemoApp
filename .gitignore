@@ -133,4 +133,4 @@ dist
 
 # カスタムエリア
 startup.sh
-db_data/?
+db_data/**
