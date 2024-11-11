@@ -1,0 +1,20 @@
+{
+  "name": "node_apm_api_lab",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bunyan": "^1.8.15",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "mysql": "^2.18.1",
+    "newrelic": "^12.6.0",
+    "pino": "^9.5.0",
+    "winston": "^3.15.0"
+  }
+}

@@ -1,0 +1,52 @@
+services: #
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./db_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: mynodeapi_database
+      MYSQL_USER: nodeadmin
+      MYSQL_PASSWORD: nodeadmin_password
+
+  app:
+    image: node:latest
+    #command: ./startup.sh &
+    command: node -r newrelic index.js
+    #restart: always
+    volumes:
+      - .:/myapp
+    ports:
+      - 8080:8080
+    working_dir: /myapp
+    #depends_on:
+    #  - db
+    environment:
+      NEW_RELIC_AI_MONITORING_ENABLED: true
+      NEW_RELIC_CUSTOM_INSIGHTS_EVENTS_MAX_SAMPLES_STORED: 100k
+      NEW_RELIC_SPAN_EVENTS_MAX_SAMPLES_STORED: 10k
+      NEW_RELIC_APP_NAME: <あなたの任意のアプリ名を設定する>
+      NEW_RELIC_LICENSE_KEY: <あなたのIngest License Keyを設定する>
+      NEW_RELIC_TRACER_ENABLED: true
+      NEW_RELIC_EXPLAIN_THRESHOLD: 5
+      NEW_RELIC_RECORD_SQL: obfuscated
+      NEW_RELIC_SLOW_SQL_ENABLED: true
+
+  web:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      # 設定ファイル群
+      - ./web/conf.d:/etc/nginx/conf.d
+      - ./web/fastcgi_params:/etc/nginx/fastcgi_params
+      - ./web/mime.types:/etc/nginx/mime.types
+      - ./web/nginx.conf:/etc/nginx/nginx.conf
+      - ./web/scgi_params:/etc/nginx/scgi_params
+      - ./web/uwsgi_params:/etc/nginx/uwsgi_params
+      # コンテンツ群
+      - ./web/html:/usr/share/nginx/html
+
