@@ -1,4 +1,9 @@
+using Newtonsoft.Json;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//VulManデモ用の脆弱性ライブラリの脆弱性緩和策
+JsonConvert.DefaultSettings = () => new JsonSerializerSettings { MaxDepth = 128 };
 
 // Add services to the container.
 builder.Services.AddRazorPages();
