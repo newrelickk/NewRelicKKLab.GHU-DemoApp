@@ -77,4 +77,12 @@ jobs:
           apiKey: ${{ secrets.NEW_RELIC_API_KEY }}
           guid: ${{ secrets.NEW_RELIC_DEPLOYMENT_ENTITY_GUID }}
           version: "${{ env.RELEASE_VERSION }}"
+          changelog: "https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md"
+          commit: "${{ github.sha }}"
+          description: "Automated Release via Github Actions"
+          deploymenttype: "BASIC"
+          groupId: "Workshop App Release: ${{ github.ref_name }}"
           user: "${{ github.actor }}"
+      # When chaining steps together, the deployment id is placeed into the github environment 
+      - name: View output
+        run: echo "${{ env.deploymentId }}"
