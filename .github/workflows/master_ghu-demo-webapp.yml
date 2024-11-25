@@ -63,6 +63,12 @@ jobs:
           slot-name: 'Production'
           package: .
 
+      - name: Update Env Vars
+        id: update-envvar
+        uses: Azure/cli@v2.1.0
+        with:
+          inlineScript: "az webapp config appsettings set -g ghu-demo -n ghu-demo-webapp --settings NEW_RELIC_METADATA_COMMIT=${{ github.sha }}"
+
   newrelic:
     runs-on: ubuntu-latest
     name: New Relic
