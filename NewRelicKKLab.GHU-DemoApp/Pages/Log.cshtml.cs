@@ -18,7 +18,7 @@ namespace NewRelicKKLab.GHU_DemoApp.Pages
             for (int i = 0; i < total; i++)
             {
                 _logger.LogInformation("This is an information log message {Index} at {Time}", i, DateTime.Now);
-                //await Task.Delay(TimeSpan.FromMilliseconds(duration * 1000 / total));
+                await Task.Delay(TimeSpan.FromMilliseconds(duration * 1000 / total));
             }
         }
     }
